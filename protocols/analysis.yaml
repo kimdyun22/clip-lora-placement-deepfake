@@ -1,0 +1,29 @@
+protocol_id: clip_lora_analysis_v1
+status: frozen
+scope: reporting_only
+candidates: [attn_out, attn_qv, mlp, mlp_attn_out]
+seeds: [3407, 7859, 12011]
+datasets: [Celeb-DF-v2, DFDC, DFDCP, UADFV, DeeperForensics-1.0, WildDeepfake]
+statistics:
+  unit: analysis_unit
+  paired_delong: {two_sided: true, seed_conditional: true}
+  bootstrap: {method: stratified_paired_percentile, replicates: 2000, confidence_level: 0.95, random_seed: 20260829}
+  multiplicity:
+    primary: {family: 6_pairs_x_6_datasets_within_seed, correction: Holm, alpha: 0.05}
+    sensitivity: {family: 108_tests, correction: Holm, alpha: 0.05}
+  pool_predictions_across_seeds: false
+  pool_predictions_across_datasets: false
+calibration: {unit: analysis_unit, bins: 15, binning: equal_width, metrics: [ECE, Brier]}
+thresholds:
+  selected_on: source_validation
+  f1_tie_breaker: highest_threshold
+  frame_fpr_upper_bounds: [0.01, 0.001]
+  target_eer: descriptive_only
+failure_cases:
+  decision_threshold: source_validation_f1_threshold_per_model_and_seed
+  categories: [false_positive, false_negative]
+  causal_interpretation: false
+reporting_locks:
+  target_metrics_used_for_selection: false
+  target_threshold_fitting: false
+  target_side_model_declaration: false

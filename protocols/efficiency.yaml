@@ -1,0 +1,90 @@
+protocol_id: ladclip_standard_lora_four_way_efficiency_rtx4090_v3_gpu1
+status: frozen_before_measurement
+frozen_date: 2026-08-31
+supersedes_execution_only: ladclip_standard_lora_four_way_efficiency_rtx4090_v2
+purpose: >-
+  Repeated model-only latency, throughput, memory, training-step, and projected
+  epoch comparison for four corrected standard weight-space LoRA placements
+  with exactly equal trainable parameters. Accuracy and target metrics are not
+  read, and no model selection is performed.
+execution_record:
+  original_protocol_sha256: 004198a724895ab38ae061ddb6742344b6b09817fc2fe2e968eff6de298e263c
+  original_benchmark_script_sha256: 3e206946e8e75cd59e7ab572520187bb54029ec430e4ba1e8841aa58c37fc01e
+  public_materialization_note: >-
+    Checkpoint and output paths were changed to repository-relative templates
+    for publication. Numerical settings and execution order are unchanged.
+hardware:
+  gpu: NVIDIA GeForce RTX 4090
+  required_gpu: NVIDIA GeForce RTX 4090
+  device: cuda:1
+  same_physical_gpu_for_all_models: true
+  concurrent_benchmark_jobs: false
+  gpu0_exclusion_reason: RustDesk service held a persistent GPU 0 compute context
+precision: float32
+input:
+  shape: [3, 224, 224]
+  source: fixed_seed_synthetic_tensor
+  includes_decode_resize_normalize: false
+determinism: {synthetic_input_seed: 20260831, allow_tf32: false, cudnn_allow_tf32: false, cudnn_benchmark: false}
+representative_checkpoint:
+  seed: 3407
+  rationale: >-
+    The computational graph and tensor dimensions are invariant across seeds
+    within a placement. Hardware variability is estimated from five repeated
+    rounds rather than from training seeds.
+rounds:
+  count: 5
+  orders:
+    - [attn_out, attn_qv, mlp, mlp_attn_out]
+    - [mlp, attn_out, mlp_attn_out, attn_qv]
+    - [attn_qv, mlp_attn_out, attn_out, mlp]
+    - [mlp_attn_out, mlp, attn_qv, attn_out]
+    - [attn_out, mlp, attn_qv, mlp_attn_out]
+inference:
+  latency_batch_size: 1
+  latency_warmup_iterations: 100
+  latency_measured_iterations: 500
+  throughput_batch_size: 32
+  throughput_warmup_iterations: 100
+  throughput_measured_iterations: 300
+  latency_cuda_synchronize_each_iteration: true
+  throughput_formula: batch_size_times_iterations_divided_by_elapsed_seconds
+  inference_mode: true
+memory:
+  primary_metric: torch.cuda.max_memory_allocated
+  secondary_metric: torch.cuda.max_memory_reserved
+  reset_peak_before_measurement: true
+training_compute:
+  description: >-
+    Data-free full forward, cross-entropy backward, AdamW optimizer update, and
+    zero_grad on a fixed synthetic batch. SBI generation, decoding,
+    augmentation, data transfer, and loader I/O are excluded.
+  physical_batch_size: 32
+  gradient_accumulation_steps: 1
+  effective_batch_size: 32
+  warmup_optimizer_steps: 50
+  measured_optimizer_steps: 200
+  cuda_synchronize_each_step: true
+  optimizer: AdamW
+  learning_rate: 2.0e-5
+  weight_decay: 0.01
+  projected_steps_per_epoch: 3590
+  epoch_metric_name: Projected model-only epoch time
+flops:
+  measure_once_per_placement: true
+  tool: fvcore.nn.FlopCountAnalysis
+  input_batch_size: 1
+  convention: fvcore operator handles; one fused multiply-add is one flop
+  caveat: unsupported operators are reported and operator coverage may be incomplete
+models:
+  - {id: attn_out, label: Attn-Out, lora_position: attn_out, lora_rank: 30, lora_alpha: 120, checkpoint: checkpoints/attn_out_seed3407.pth, expected_trainable_params: 1478658}
+  - {id: attn_qv, label: Attn-Q/V, lora_position: attn_qv, lora_rank: 15, lora_alpha: 60, checkpoint: checkpoints/attn_qv_seed3407.pth, expected_trainable_params: 1478658}
+  - {id: mlp, label: MLP, lora_position: mlp, lora_rank: 6, lora_alpha: 24, checkpoint: checkpoints/mlp_seed3407.pth, expected_trainable_params: 1478658}
+  - {id: mlp_attn_out, label: MLP+Attn-Out, lora_position: mlp_attn_out, lora_rank: 5, lora_alpha: 20, checkpoint: checkpoints/mlp_attn_out_seed3407.pth, expected_trainable_params: 1478658}
+reporting:
+  variability_unit: five independent hardware benchmark rounds
+  summary: mean_and_sample_sd
+  model_only_not_end_to_end: true
+  target_metrics_used_for_design: false
+  selection_performed: false
+  output_root: results/benchmark_runs

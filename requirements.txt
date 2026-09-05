@@ -1,0 +1,29 @@
+# CUDA 12.1 build. Install with:
+#   python -m pip install -r requirements.txt
+
+--extra-index-url https://download.pytorch.org/whl/cu121
+
+torch==2.2.2
+torchvision==0.17.2
+numpy==1.26.4
+# The recorded environment carried opencv-python and opencv-python-headless
+# 4.13.0.90 side by side. Installing both is not supported: they write the same
+# cv2 package. 4.13.x also declares numpy>=2, which the pinned numpy 1.26.4 does
+# not satisfy. A single headless 4.11.0.86 is pinned instead: it is the last
+# release accepting numpy 1.x and it satisfies the albumentations requirement.
+# This is a resolver-consistent reconstruction; numerical identity with the
+# unsupported dual-OpenCV environment is not claimed. See environment/README.md.
+opencv-python-headless==4.11.0.86
+scikit-learn==1.7.2
+scipy==1.15.3
+PyYAML==6.0
+pyarrow==23.0.1
+pandas==2.2.2
+matplotlib==3.9.0
+pillow==10.3.0
+tqdm==4.66.4
+timm==1.0.24
+transformers==4.40.0
+albumentations==2.0.8
+fvcore==0.1.5.post20221221
+git+https://github.com/openai/CLIP.git@ded190a052fdf4585bd685cee5bc96e0310d2c93

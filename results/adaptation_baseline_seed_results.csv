@@ -1,0 +1,10 @@
+method,seed,source_frame_auc,macro_6_auc,provenance_note
+Bottleneck adapter,3407,0.9812850647493433,0.9335219964361491,existing adaptive-stage evaluation artifact
+Bottleneck adapter,7859,0.9851462845863981,0.9382219037853479,existing adaptive-stage evaluation artifact
+Bottleneck adapter,12011,0.9851378195746532,0.9345940407210916,existing adaptive-stage evaluation artifact
+Full visual fine-tuning,3407,0.9876911357483142,0.9389971837620222,existing full-fine-tuning evaluation artifact
+Full visual fine-tuning,7859,0.9911709302775528,0.9428875021441577,existing full-fine-tuning evaluation artifact
+Full visual fine-tuning,12011,0.9889437950583049,0.9342567459516524,existing full-fine-tuning evaluation artifact
+Standard weight-space LoRA (Attn-Q/V),3407,0.9874850455103396,0.9420232797830206,existing corrected standard-LoRA primary evaluation artifact
+Standard weight-space LoRA (Attn-Q/V),7859,0.9865621093404888,0.9438954632864882,existing corrected standard-LoRA primary evaluation artifact
+Standard weight-space LoRA (Attn-Q/V),12011,0.9854903076615078,0.9437603370279958,existing corrected standard-LoRA primary evaluation artifact

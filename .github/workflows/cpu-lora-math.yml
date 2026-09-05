@@ -1,0 +1,31 @@
+name: CPU LoRA checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  static-and-math:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install CPU test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu torch torchvision
+          python -m pip install ftfy regex tqdm
+          python -m pip install git+https://github.com/openai/CLIP.git@ded190a052fdf4585bd685cee5bc96e0310d2c93
+      - name: Compile released Python sources
+        run: python -m compileall -q src analysis tests
+      - name: Run CPU-only LoRA algebra checks
+        run: >-
+          python -c "import torch; from src.clip_lora.model import _delta, _lora_pair;
+          p=_lora_pair(8,12,4); d=_delta(p,4.0);
+          assert d.shape==(12,8) and torch.count_nonzero(d)==0;
+          print('CPU_LORA_MATH_PASSED')"
+
+# Full correctness suites instantiate CLIP ViT-L/14 and remain manual checks.

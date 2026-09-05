@@ -1,0 +1,52 @@
+protocol_id: ladclip_frozen_attnout_sbi_2x2_source_only_v1
+status: frozen_record_materialized_for_publication
+frozen_date: 2026-08-20
+original_protocol_sha256: 3cc61e21a5cfcad4554b7d876963d551ec4cec40eb44fe6272d91169384eecd8
+purpose: >-
+  Source-only 2x2 factorial crossing Frozen versus Attn-Out r16 adaptation
+  with SBI off versus pSBI=0.25. Four missing Frozen runs were trained; the
+  other cells use immutable existing checkpoints recorded in the result CSV.
+reporting:
+  source_only_analysis: true
+  target_metrics_used_for_design: false
+  target_metrics_used_for_selection: false
+  new_champion_declaration: false
+  descriptive_factorial_contrasts_only: true
+data:
+  source: FaceForensics++ C23
+  train_manifest: datasets/manifests/ffpp_train.jsonl.gz
+  train_frames: 114884
+  validation_manifest: datasets/manifests/ffpp_val.jsonl.gz
+  validation_frames: 22354
+  validation_analysis_units: 280
+training:
+  backbone: CLIP ViT-L/14
+  epochs: 10
+  effective_batch_size: 32
+  optimizer: AdamW
+  learning_rate: 2.0e-5
+  weight_decay: 0.01
+  scheduler: cosine_annealing
+  scheduler_t_max: 10
+  grad_clip_norm: 1.0
+  classifier_dropout: 0.1
+  save_policy: final_epoch_only
+  deterministic_algorithms: true
+seeds: [3407, 7859, 12011]
+adapted_model:
+  placement: attn_out
+  rank: 16
+  alpha: 64
+  alpha_over_rank: 4.0
+factorial:
+  adaptation: [frozen, attn_out_r16_alpha64]
+  sbi_probability: [0.0, 0.25]
+  source_metrics: [frame_auc, eer, ap]
+  inferential_claim: none_descriptive_only
+lineage_hashes:
+  recovered_f2a_trainer: 1481805ed707bd871bffb5c7f5596547ba237990bf5bbf103751257ea47d26ca
+  f2b_trainer: 30235b6959e68732052e45193252c25da2694863e7fd07a2d950b03447f6320a
+  f1_trainer: 740f322c558dacf96de7ff946fd7d879a6f108285f4fc00394222c4d7609950a
+  uniform_evaluator: b3a42e9b8da367b126129cd6079431071480b6c27216bc67ba7aae15f9f434ce
+  artifact_utils: 3de35b8303442da44158324b5ea9b3c2fa73d91f00e13412365812629b357263
+public_result: results/lora_sbi_2x2.csv

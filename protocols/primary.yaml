@@ -1,0 +1,53 @@
+protocol_id: clip_lora_primary_v1
+status: frozen
+model:
+  backbone: CLIP ViT-L/14
+  implementation: src/clip_lora/model.py
+  common_head_parameters: 4098
+  exact_lora_parameters: 1474560
+  exact_trainable_parameters: 1478658
+  lora_scale_alpha_over_rank: 4.0
+data:
+  source: FaceForensics++ C23
+  train_manifest: datasets/manifests/ffpp_train.jsonl.gz
+  train_frames: 114884
+  validation_manifest: datasets/manifests/ffpp_val.jsonl.gz
+  validation_frames: 22354
+  validation_analysis_units: 280
+  runtime_path_map: null
+  reporting_only_targets:
+    - Celeb-DF-v2
+    - DFDC
+    - DFDCP
+    - UADFV
+    - DeeperForensics-1.0
+    - WildDeepfake
+training:
+  epochs: 10
+  optimizer: AdamW
+  learning_rate: 2.0e-5
+  weight_decay: 0.01
+  scheduler: cosine_annealing
+  scheduler_t_max: 10
+  batch_size: 32
+  effective_batch_size: 32
+  grad_accum_steps: 1
+  workers: 8
+  grad_clip_norm: 1.0
+  classifier_dropout: 0.1
+  p_sbi: 0.25
+  lora_scale: 4.0
+  save_policy: final_epoch_only
+  deterministic_algorithms: true
+seeds: [3407, 7859, 12011]
+placements:
+  - {id: attn_out, label: Attn-Out, lora_position: attn_out, rank: 30, alpha: 120, expected_trainable_params: 1478658}
+  - {id: attn_qv, label: Attn-Q/V, lora_position: attn_qv, rank: 15, alpha: 60, expected_trainable_params: 1478658}
+  - {id: mlp, label: MLP, lora_position: mlp, rank: 6, alpha: 24, expected_trainable_params: 1478658}
+  - {id: mlp_attn_out, label: MLP+Attn-Out, lora_position: mlp_attn_out, rank: 5, alpha: 20, expected_trainable_params: 1478658}
+target_policy:
+  target_metrics_used_for_design: false
+  target_metrics_used_for_selection: false
+  target_reporting_only: true
+  universal_optimum_claim: false
+design_caveat: Exact parameter matching requires placement-specific ranks.

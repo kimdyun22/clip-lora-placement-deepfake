@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use this software or its result artifacts, please cite it as below."
+type: software
+title: "Parameter-matched LoRA placement reveals performance-efficiency trade-offs in cross-dataset deepfake detection"
+authors:
+  - family-names: Kim
+    given-names: Dohyeon
+  - family-names: Kang
+    given-names: Hyunsoo
+repository-code: "https://github.com/kimdyun22/clip-lora-placement-deepfake"
+license: Apache-2.0
+version: 1.0.0
+date-released: 2026-09-01

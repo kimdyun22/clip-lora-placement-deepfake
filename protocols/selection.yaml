@@ -1,0 +1,24 @@
+protocol_id: clip_lora_source_selection_v1
+status: frozen
+purpose: Source-only model-development candidates reported in Supplementary Table S2.
+source: FaceForensics++ C23 validation
+seeds: [3407, 7859, 12011]
+training_defaults:
+  epochs: 10
+  optimizer: AdamW
+  learning_rate: 2.0e-5
+  weight_decay: 0.01
+  p_sbi: 0.25
+  lora_scale_alpha_over_rank: 4.0
+candidates:
+  - {id: mlp_r4, label: MLP r4/alpha16, role: comparable_candidate, position: mlp, rank: 4, alpha: 16, trainable_params: 987138}
+  - {id: attn_qv_r16, label: Attn-Q/V r16/alpha64, role: comparable_candidate, position: attn_qv, rank: 16, alpha: 64, trainable_params: 1576962}
+  - {id: attn_out_r16, label: Attn-Out r16/alpha64, role: comparable_candidate, position: attn_out, rank: 16, alpha: 64, trainable_params: 790530}
+  - {id: mlp_attn_out_r4, label: MLP+Attn-Out r4/alpha16, role: comparable_candidate, position: mlp_attn_out, rank: 4, alpha: 16, trainable_params: 1183746}
+  - {id: submitted_attn_out_p010, label: Attn-Out r16/alpha64 pSBI=0.10, role: descriptive_reference, position: attn_out, rank: 16, alpha: 64, p_sbi: 0.10, trainable_params: 790530}
+selection_rule:
+  applies_to_role: comparable_candidate
+  unit: three-seed source-validation mean
+  ordered_metrics: [max_frame_auc, min_eer, max_ap, min_trainable_params]
+  target_metrics_admitted: false
+interpretation: Numerical source-validation leader; not a universal placement optimum.
