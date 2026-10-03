@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+*.pth
+*.pt
+*.ckpt
+*.parquet
+!results/predictions/analysis_unit_scores.parquet
+*.npy
+*.log
+.pytest_cache/
+data/
+checkpoints/
+outputs/
+wandb/
