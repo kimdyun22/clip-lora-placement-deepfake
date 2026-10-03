@@ -1,0 +1,50 @@
+protocol_id: clip_lora_robustness_analysis
+status: completed_reporting_only
+scope: aggregation_calibration_and_uncertainty_sensitivity
+candidates: [attn_out, attn_qv, mlp, mlp_attn_out]
+seeds: [3407, 7859, 12011]
+datasets: [Celeb-DF-v2, DFDC, DFDCP, UADFV, DeeperForensics-1.0, WildDeepfake]
+
+aggregation_sensitivity:
+  summaries: [macro_6, macro_5_without_DFDCP, family_balanced_DFDC_DFDCP, leave_one_dataset_out]
+
+dataset_local_diagnostic:
+  family: 6_placement_pairs_within_seed_and_dataset
+  correction: Holm
+  alpha: 0.05
+
+crossed_uncertainty:
+  estimand: family_balanced_target_auc_difference
+  resampling: paired_seed_and_class_stratified_analysis_unit
+  shared_draws_across_placements: true
+  dataset_families:
+    - [Celeb-DF-v2]
+    - [DFDC, DFDCP]
+    - [UADFV]
+    - [DeeperForensics-1.0]
+    - [WildDeepfake]
+  replicates: 10000
+  random_seed: 20260924
+  interval: percentile_95
+
+uncertainty_decomposition:
+  seed_component: report_three_seed_specific_differences
+  analysis_unit_component: class_stratified_paired_bootstrap
+  replicates: 10000
+  random_seed: 20260925
+  seed_confidence_interval_reported: false
+
+prevalence_balanced_calibration:
+  unit: analysis_unit
+  bins: 15
+  binning: equal_width
+  metrics: [ECE, Brier]
+  prevalence_balancing: equal_total_weight_per_class
+  target_recalibration_performed: false
+  interval_replicates: 2000
+
+reporting_locks:
+  target_metrics_used_for_selection: false
+  target_threshold_fitting: false
+  target_side_model_declaration: false
+  new_champion_declaration: false

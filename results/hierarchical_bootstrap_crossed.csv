@@ -1,0 +1,7 @@
+first,second,metric,replicates,point_estimate,ci_low,ci_high,excludes_zero
+Attn-Out,Attn-Q/V,family_balanced_macro_auc_difference,10000,-0.002866637849808007,-0.008126060208800984,0.002686575249673389,false
+Attn-Out,MLP,family_balanced_macro_auc_difference,10000,-3.4078468849063626e-05,-0.005803442930276412,0.0061072707702896885,false
+Attn-Out,MLP+Attn-Out,family_balanced_macro_auc_difference,10000,-0.0014114556845123971,-0.006654397173637872,0.00443711046375472,false
+Attn-Q/V,MLP,family_balanced_macro_auc_difference,10000,0.0028325593809589433,-0.001855689755057849,0.007544487846288136,false
+Attn-Q/V,MLP+Attn-Out,family_balanced_macro_auc_difference,10000,0.0014551821652956098,-0.0030141033245572072,0.006006550403253052,false
+MLP,MLP+Attn-Out,family_balanced_macro_auc_difference,10000,-0.0013773772156633335,-0.0044761358543951605,0.0018776592145086405,false

@@ -1,0 +1,4 @@
+method,p_sbi,updated_parameters,seeds,source_auc,macro_6_auc,evidence_level
+Frozen CLIP + linear head,0.25,4098,1,0.8675945906338437,0.8431212346269804,single_seed_descriptive
+BitFit,0.25,202754,1,0.9755614486197712,0.9097680244479976,single_seed_descriptive
+Partial fine-tuning (last blocks),0.25,50391042,1,0.9526570947187585,0.9207926926178455,single_seed_descriptive

@@ -1,0 +1,47 @@
+scope: model_definitions_and_recorded_settings
+implementation: src/clip_lora/baselines.py
+backbone: CLIP ViT-L/14
+feature: pre_projection_cls_after_ln_post
+head: [LayerNorm_1024, Dropout_0.1, Linear_1024_2]
+training:
+  epochs: 10
+  optimizer: AdamW
+  learning_rate: 2.0e-5
+  weight_decay: 0.01
+  scheduler: cosine_annealing
+  scheduler_t_max: 10
+  effective_batch_size: 32
+  physical_batch_size: 32
+  gradient_accumulation_steps: 1
+  workers: 8
+  grad_clip_norm: 1.0
+  p_sbi: 0.25
+  latent_augmentation: false
+  save_policy: final_epoch_only
+models:
+  frozen:
+    seeds: [3407]
+    updated_parameters: 4098
+  bitfit:
+    seeds: [3407]
+    bias_rule: visual_parameter_name_endswith_dot_bias
+    fused_qkv_input_biases_trainable: false
+    updated_parameters: 202754
+  bottleneck_adapter:
+    seeds: [3407, 7859, 12011]
+    adapter_dim: 15
+    adapter_activation: GELU
+    updated_parameters: 766314
+  partial_finetune:
+    seeds: [3407]
+    train_last_blocks: 4
+    train_ln_post: true
+    updated_parameters: 50391042
+  full_finetune:
+    seeds: [3407, 7859, 12011]
+    learning_rate: 2.0e-6
+    physical_batch_size: 1
+    gradient_accumulation_steps: 32
+    workers: 4
+    unused_visual_projection_parameters: 786432
+    updated_parameters: 303183874

@@ -1,0 +1,67 @@
+{
+  "status": "VALIDATED",
+  "script_sha256": "20b6b44baf1e5bf4741173f5e4f78943c8ae8a8669fc9509923c103364a4c51c",
+  "python": "3.10.13",
+  "torch": "2.2.2+cu121",
+  "device": "cuda:0",
+  "cuda_available": true,
+  "cuda_runtime": "12.1",
+  "cudnn": 8902,
+  "gpu_name": "NVIDIA GeForce RTX 4090",
+  "random_seed": 20260924,
+  "input_shape": [
+    2,
+    3,
+    224,
+    224
+  ],
+  "checks": [
+    {
+      "position": "attn_out",
+      "checkpoint_sha256": "990a779221916d5a00c6d71a2a823445388f61e04c5d23c3a737d54cfeb959f4",
+      "max_abs_logit_difference": 0.0,
+      "max_abs_feature_difference": 0.0,
+      "max_abs_key_projection_drift": null,
+      "tolerance": 0.0002,
+      "run_id": "std_attn_out_r30_alpha120_p025__seed3407",
+      "checkpoint_file": "epoch_10.pth"
+    },
+    {
+      "position": "attn_qv",
+      "checkpoint_sha256": "83b6c2464db665afe3cc98b94815819cf6ed58b42a78402c7e58f691b806386e",
+      "max_abs_logit_difference": 0.0,
+      "max_abs_feature_difference": 0.0,
+      "max_abs_key_projection_drift": 0.0,
+      "tolerance": 0.0002,
+      "run_id": "std_attn_qv_r15_alpha60_p025__seed3407",
+      "checkpoint_file": "epoch_10.pth"
+    },
+    {
+      "position": "mlp",
+      "checkpoint_sha256": "b55ec9508f699f3c35c7cfcb423115e12dc6e847c17bfd2a841ed85b44539225",
+      "max_abs_logit_difference": 0.0,
+      "max_abs_feature_difference": 0.0,
+      "max_abs_key_projection_drift": null,
+      "tolerance": 0.0002,
+      "run_id": "std_mlp_r6_alpha24_p025__seed3407",
+      "checkpoint_file": "epoch_10.pth"
+    },
+    {
+      "position": "mlp_attn_out",
+      "checkpoint_sha256": "a6bd6b87611c1e7a83476dc591f342726c444d375ed5be21fab745acfcefb0e3",
+      "max_abs_logit_difference": 0.0,
+      "max_abs_feature_difference": 0.0,
+      "max_abs_key_projection_drift": null,
+      "tolerance": 0.0002,
+      "run_id": "std_mlp_attn_out_r5_alpha20_p025__seed3407",
+      "checkpoint_file": "epoch_10.pth"
+    }
+  ],
+  "public_redaction": {
+    "removed_fields": [
+      "checks[].checkpoint (absolute path)"
+    ],
+    "replaced_with": "checks[].run_id + checkpoint_file"
+  },
+  "note": "Primary environment-matched evidence (experiment container, CUDA)."
+}
