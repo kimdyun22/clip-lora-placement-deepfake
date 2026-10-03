@@ -1,0 +1,24 @@
+# CUDA 12.1 build. Install with:
+#   python -m pip install -r requirements.txt
+
+--extra-index-url https://download.pytorch.org/whl/cu121
+
+torch==2.2.2
+torchvision==0.17.2
+numpy==1.26.4
+# Headless OpenCV is sufficient for the released pipeline.
+opencv-python-headless==4.11.0.86
+scikit-learn==1.7.2
+scipy==1.15.3
+scikit-image==0.25.2
+PyYAML==6.0
+pyarrow==23.0.1
+pandas==2.2.2
+matplotlib==3.9.0
+pillow==10.2.0
+tqdm==4.66.4
+timm==1.0.24
+transformers==4.40.0
+albumentations==2.0.8
+fvcore==0.1.5.post20221221
+git+https://github.com/openai/CLIP.git@ded190a052fdf4585bd685cee5bc96e0310d2c93

@@ -1,0 +1,4 @@
+method,p_sbi,updated_parameters,seeds,source_auc_mean,source_auc_sd,macro_6_auc_mean,macro_6_auc_sd,evidence_level
+Bottleneck adapter,0.25,766314,3,0.9838563896367982,0.002226836696244169,0.9354459803141962,0.0024630536079199633,three_seed_baseline
+Full visual fine-tuning,0.25,303970306,3,0.9892686203613906,0.001762491446666664,0.9387138106192775,0.0043223504447394085,three_seed_baseline
+Standard weight-space LoRA (Attn-Q/V),0.25,1478658,3,0.986512487504112,0.000998294303486969,0.9432263600325016,0.0010440863668547168,three_seed_primary_reference

@@ -1,0 +1,13 @@
+placement,candidate,seed,source_fixed_threshold
+attn_out,std_attn_out_r30_alpha120_p025,3407,0.50003153705793579
+attn_out,std_attn_out_r30_alpha120_p025,7859,0.50015330037237504
+attn_out,std_attn_out_r30_alpha120_p025,12011,0.50400472313117461
+attn_qv,std_attn_qv_r15_alpha60_p025,3407,0.50010487914659052
+attn_qv,std_attn_qv_r15_alpha60_p025,7859,0.50029185878167937
+attn_qv,std_attn_qv_r15_alpha60_p025,12011,0.50026777368543662
+mlp,std_mlp_r6_alpha24_p025,3407,0.50002964132693251
+mlp,std_mlp_r6_alpha24_p025,7859,0.50017909192450816
+mlp,std_mlp_r6_alpha24_p025,12011,0.50012331564789747
+mlp_attn_out,std_mlp_attn_out_r5_alpha20_p025,3407,0.49994637622802429
+mlp_attn_out,std_mlp_attn_out_r5_alpha20_p025,7859,0.50011723710204592
+mlp_attn_out,std_mlp_attn_out_r5_alpha20_p025,12011,0.50009052087460759

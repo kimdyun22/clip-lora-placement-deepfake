@@ -1,0 +1,32 @@
+protocol_id: clip_lora_merged_inference
+status: completed_reporting_only
+purpose: Compare trained standard-LoRA checkpoints before and after explicit weight merging.
+
+hardware:
+  gpu: NVIDIA GeForce RTX 4090
+  precision: float32
+  same_physical_gpu_for_all_conditions: true
+input: {shape: [3, 224, 224], source: fixed_seed_synthetic_tensor}
+excludes: [decode, resize, normalization, augmentation, data_transfer, loader_io, SBI_generation]
+
+models:
+  - {id: attn_out, rank: 30, alpha: 120, trainable_params: 1478658}
+  - {id: attn_qv, rank: 15, alpha: 60, trainable_params: 1478658}
+  - {id: mlp, rank: 6, alpha: 24, trainable_params: 1478658}
+  - {id: mlp_attn_out, rank: 5, alpha: 20, trainable_params: 1478658}
+
+benchmark:
+  representative_seed: 3407
+  rounds: 8
+  ordering: eight_condition_cyclic_schedule
+  global_warmup: 200
+  latency: {batch_size: 1, warmup_iterations: 100, measured_iterations: 500}
+  throughput: {batch_size: 32, warmup_iterations: 100, measured_iterations: 300}
+  numerical_equivalence_tolerance: 2.0e-4
+  merged_forward: native_CLIP_block
+  unmerged_forward: manual_adapted_block_reconstruction
+
+interpretation:
+  residual_merged_differences: measurement_variation_not_placement_ranking
+  target_metrics_used_for_design: false
+  selection_performed: false

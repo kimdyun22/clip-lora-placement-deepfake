@@ -1,0 +1,4 @@
+method,released_checkpoint_sha256,native_run,dataset,metric,published_auc,reproduced_auc,delta,disposition
+Forensics Adapter,3d87f9bfabb2a4ab3ad5fa0c2bf43bd0b41377b7546fdad0a9b61a1d4adfbddb,retry-03,Celeb-DF-v2,video_auc,0.957,0.9566754791804362,-0.0003245208195638005,agreement_at_three_decimals
+Forensics Adapter,3d87f9bfabb2a4ab3ad5fa0c2bf43bd0b41377b7546fdad0a9b61a1d4adfbddb,retry-03,DFDC,video_auc,0.872,0.8720923021009722,9.230210097221914e-05,agreement_at_three_decimals
+Forensics Adapter,3d87f9bfabb2a4ab3ad5fa0c2bf43bd0b41377b7546fdad0a9b61a1d4adfbddb,retry-03,DFDCP,video_auc,0.929,0.9288893467957965,-0.00011065320420355906,agreement_at_three_decimals

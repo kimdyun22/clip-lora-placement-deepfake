@@ -1,0 +1,13 @@
+case_id,case_type,candidate,seed,dataset,label,error_category,fake_probability,source_fixed_threshold,prediction,correct,display_frame_number
+case_1,shared_false_positive,attn_out,3407,DFDC,0,false_positive,0.9998379573225975,0.5000315370579358,1,false,154
+case_1,shared_false_positive,attn_qv,3407,DFDC,0,false_positive,0.9999939724802971,0.5001048791465905,1,false,154
+case_1,shared_false_positive,mlp,3407,DFDC,0,false_positive,0.9999825041741133,0.5000296413269325,1,false,154
+case_1,shared_false_positive,mlp_attn_out,3407,DFDC,0,false_positive,0.9999691620469093,0.4999463762280243,1,false,154
+case_2,model_specific_error,attn_out,3407,DeeperForensics-1.0,0,false_positive,0.08591607725247741,0.5000315370579358,0,true,147
+case_2,model_specific_error,attn_qv,3407,DeeperForensics-1.0,0,false_positive,0.0028857290744781494,0.5001048791465905,0,true,147
+case_2,model_specific_error,mlp,3407,DeeperForensics-1.0,0,false_positive,0.21690635092090815,0.5000296413269325,0,true,147
+case_2,model_specific_error,mlp_attn_out,3407,DeeperForensics-1.0,0,false_positive,0.9998935759067535,0.4999463762280243,1,false,147
+case_3,shared_false_negative,attn_out,3407,DeeperForensics-1.0,1,false_negative,0.00008986904509811211,0.5000315370579358,0,false,202
+case_3,shared_false_negative,attn_qv,3407,DeeperForensics-1.0,1,false_negative,0.0005229913585935719,0.5001048791465905,0,false,202
+case_3,shared_false_negative,mlp,3407,DeeperForensics-1.0,1,false_negative,0.00010963457714296965,0.5000296413269325,0,false,202
+case_3,shared_false_negative,mlp_attn_out,3407,DeeperForensics-1.0,1,false_negative,0.00018656291149454773,0.4999463762280243,0,false,202
