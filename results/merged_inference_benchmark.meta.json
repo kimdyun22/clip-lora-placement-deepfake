@@ -1,0 +1,32 @@
+{
+  "status": "VALIDATED",
+  "prediction_or_target_metrics_used": false,
+  "checkpoint_sha256": {
+    "attn_out": "990a779221916d5a00c6d71a2a823445388f61e04c5d23c3a737d54cfeb959f4",
+    "attn_qv": "83b6c2464db665afe3cc98b94815819cf6ed58b42a78402c7e58f691b806386e",
+    "mlp": "b55ec9508f699f3c35c7cfcb423115e12dc6e847c17bfd2a841ed85b44539225",
+    "mlp_attn_out": "a6bd6b87611c1e7a83476dc591f342726c444d375ed5be21fab745acfcefb0e3"
+  },
+  "seed": 3407,
+  "device_argument": "cuda:0",
+  "cuda_visible_devices": "2",
+  "device_name": "NVIDIA GeForce RTX 4090",
+  "device_total_memory": 25393692672,
+  "torch": "2.2.2+cu121",
+  "torch_cuda": "12.1",
+  "cudnn": 8902,
+  "rounds": 8,
+  "schedule": "eight-condition cyclic Latin schedule",
+  "global_warmup": 200,
+  "batch1_warmup": 100,
+  "batch1_iterations": 500,
+  "batch32_warmup": 100,
+  "batch32_iterations": 300,
+  "precision": "float32",
+  "run_ids": {
+    "attn_out": "std_attn_out_r30_alpha120_p025__seed3407",
+    "attn_qv": "std_attn_qv_r15_alpha60_p025__seed3407",
+    "mlp": "std_mlp_r6_alpha24_p025__seed3407",
+    "mlp_attn_out": "std_mlp_attn_out_r5_alpha20_p025__seed3407"
+  }
+}
